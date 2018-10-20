@@ -35,7 +35,7 @@
       .filter(file => fs.statSync(path.join(dir, file)).isDirectory())
   }
 
-  gulp.task('pages', (done) => { gulp.src(path.join('manuscript', '*', '*'))
+  gulp.task('pages', (done) => { return gulp.src(path.join('manuscript', '*', '*'))
     .pipe(gulpif(/[.]haml$/, haml()))
     .pipe(gulpif(/[.]md$/, markdown()))
     .pipe(gulpif(/[.]markdown$/, markdown()))
@@ -47,7 +47,7 @@
   }
   )
 
-  gulp.task('templates', (done) => { gulp.src(path.join('templates', '*.*'))
+  gulp.task('templates', (done) => { return gulp.src(path.join('templates', '*.*'))
     .pipe(gulpif(/[.]haml$/, haml()))
     .pipe(gulpif(/[.]md$/, markdown()))
     .pipe(gulpif(/[.]markdown$/, markdown()))
