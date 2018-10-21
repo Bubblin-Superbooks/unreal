@@ -89,8 +89,9 @@
 
     fse.readJson(path.join('.', '.bookrc')).then((json) => {
       return {
-        CONTENT: contentString,
-        BOOKNAME: json.name
+        //CONTENT: contentString,
+        BOOKNAME: json.name,
+        BOOKLENGTH: bookLength
       }
     }).then((templateData) => {
       gulp.src(path.join('.', 'crust', 'index-template.html'))
@@ -186,7 +187,7 @@ gulp.task('watchBook', function(){
 
     gulp.watch(path.join('templates', '**.*'), gulp.series('renderBook'));
 
-    var globWatcher = gulp.watch(glob, gulp.series('indexPage', browserSync.reload));
+    var globWatcher = gulp.watch(glob, gulp.series('renderBook', 'indexPage', browserSync.reload));
 
     globWatcher.on('add', function(pagePath, stats) {
         const paths = pagePath.split(path.sep)
