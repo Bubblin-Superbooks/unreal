@@ -41,9 +41,9 @@
       .pipe(gulpif(/[.]less$/, less()))
       .pipe(gulpif(/[.]styl$/, stylus()))
       .pipe(gulp.dest(path.join('build', 'manuscript')))
+
     done()
-  }
-  )
+  })
 
   gulp.task('templates', (done) => {
     return gulp.src(path.join('templates', '*.*'))
@@ -55,14 +55,11 @@
       .pipe(gulpif(/[.]styl$/, stylus()))
       .pipe(gulp.dest(path.join('build', 'templates')))
     done()
-  }
-  )
+  })
 
   gulp.task('renderBook', gulp.series('pages', 'templates', (done) => {
     const folders = getFolders(path.join('.', 'build', 'manuscript'))
-    folders.map(folder => {
-      renderPage(folder)
-    })
+    folders.map(folder => { renderPage(folder) })
     done()
   }))
 
@@ -79,15 +76,14 @@
   function indexPageHandler () {
     const bookLength = book.length()
 
-    let contentString = ''
+    // let contentString = ''
 
-    for (let index = 1; index <= bookLength; index++) {
-      contentString += `<div class='page'><iframe src='build/renders/page-${index}.html'></iframe></div>`
-    }
+    // for (let index = 1; index <= bookLength; index++) {
+    //   contentString += `<div class='page'><iframe src='build/renders/page-${index}.html'></iframe></div>`
+    // }
 
     fse.readJson(path.join('.', '.bookrc')).then((json) => {
       return {
-        // CONTENT: contentString,
         BOOKNAME: json.name,
         BOOKLENGTH: bookLength
       }
@@ -186,7 +182,7 @@
     globWatcher.on('add', function (pagePath, stats) {
       const paths = pagePath.split(path.sep)
       if (paths[paths.length - 1] === '') {
-        page = paths[paths.length - 2]
+        var page = paths[paths.length - 2]
       } else if (paths[paths.length - 1].split('-')[0] === 'page') {
         page = paths[paths.length - 1]
       } else {
