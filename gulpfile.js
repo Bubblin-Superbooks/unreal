@@ -85,7 +85,8 @@
     fse.readJson(path.join('.', '.bookrc')).then((json) => {
       return {
         BOOKNAME: json.name,
-        BOOKLENGTH: bookLength
+        BOOKLENGTH: bookLength,
+        OPENAT: 1
       }
     }).then((templateData) => {
       gulp.src(path.join('.', 'crust', 'index-template.html'))
